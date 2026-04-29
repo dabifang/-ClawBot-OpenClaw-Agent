@@ -1,0 +1,46 @@
+# ============================================
+# 记账 Agent 配置文件
+# 复制此文件并重命名为 config.local.yaml 使用
+# ============================================
+
+# ---- 服务配置 ----
+server:
+  host: "0.0.0.0"
+  port: 5888
+  debug: false
+
+# ---- LLM 配置 (DeepSeek / OpenAI 兼容) ----
+llm:
+  api_url: "https://api.deepseek.com/v1/chat/completions"
+  api_key: "your-deepseek-api-key-here"
+  model: "deepseek-chat"
+  max_tokens: 200
+  temperature: 0
+
+# ---- 正则解析器配置 ----
+parser:
+  # 分类关键词映射
+  categories:
+    餐饮: ["吃饭", "午餐", "晚饭", "早餐", "外卖", "聚餐", "奶茶", "咖啡", "饮料", "零食", "夜宵", "烧烤", "火锅", "面条", "米饭", "小吃", "面包", "水果"]
+    交通: ["打车", "地铁", "公交", "加油", "停车", "高速", "机票", "火车票", "高铁", "骑行", "共享单车", "出租车", "网约车", "滴滴", "过路费"]
+    购物: ["买", "淘宝", "京东", "拼多多", "超市", "商场", "衣服", "鞋子", "数码", "手机", "电脑", "日用品", "化妆品", "买菜", "菜市场"]
+    娱乐: ["电影", "游戏", "KTV", "唱歌", "旅游", "景点", "门票", "演出", "演唱会", "会员", "充值", "视频会员", "音乐"]
+    居住: ["房租", "房贷", "水电", "电费", "水费", "燃气", "物业", "网费", "宽带", "话费", "维修", "装修"]
+    医疗: ["看病", "挂号", "药", "医院", "诊所", "体检", "牙科", "检查", "中药", "西药"]
+    其他: []
+
+# ---- 数据库配置 ----
+database:
+  path: "./data/ledger.db"
+
+# ---- 腾讯文档配置 ----
+tencent_docs:
+  enabled: false  # 设置为 true 启用同步
+  client_id: "your-client-id"
+  client_secret: "your-client-secret"
+  spreadsheet_id: "your-spreadsheet-id"
+  sheet_name: "记账记录"
+  # OAuth 回调地址
+  redirect_uri: "http://localhost:5888/oauth/callback"
+  # 同步模式: realtime(实时) / batch(批量)
+  sync_mode: "realtime"
